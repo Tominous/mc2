@@ -10,8 +10,8 @@ var tree = [
 
 var cactusDensity = 0.003;
 
-/*var heightChunkMap = [];
-var heightChunks = [];*/
+var heightChunkMap = [];
+var heightChunks = [];
 var noiseScale = 100;
 var worldSeed = 0;
 
@@ -26,7 +26,7 @@ function genHeightChunk(chunkX, chunkY) {
   for(var x = 0; x < chunkSize.x; x++) {
     var xArr = [];
     for(var y = 0; y < chunkSize.y; y++) {
-      //xArr.push(0);
+      xArr.push(0);
       var sNoise = noise.simplex2(((chunkX * chunkSize.x) + x) / noiseScale, ((chunkY * chunkSize.y) + y) / noiseScale);
       var sNoise2 = noise.simplex2(((chunkX * chunkSize.x) + x) / (noiseScale * 30), ((chunkY * chunkSize.y) + y) / (noiseScale * 30)) * 2;
       var pNoise = noise.perlin2(((chunkX * chunkSize.x) + x) / noiseScale, ((chunkY * chunkSize.y) + y) / noiseScale);
@@ -44,18 +44,18 @@ function genHeightChunk(chunkX, chunkY) {
     data.push(xArr);
   }
   
-  //data[0][0] = randint(0, h);
-  //data[chunkSize.x - 1][0] = randint(0, h);
-  //data[0][chunkSize.y - 1] = randint(0, h);
-  //data[chunkSize.x - 1][chunkSize.y - 1] = randint(0, h);
+  data[0][0] = randint(0, h);
+  data[chunkSize.x - 1][0] = randint(0, h);
+  data[0][chunkSize.y - 1] = randint(0, h);
+  data[chunkSize.x - 1][chunkSize.y - 1] = randint(0, h);
   
-  //data = dSquare(data, 0, chunkSize.x - 1, 0, chunkSize.y - 1, h - 1);
-  //data = dSquare(data, 0, 15, 0, 15, h - 1);
+  data = dSquare(data, 0, chunkSize.x - 1, 0, chunkSize.y - 1, h - 1);
+  data = dSquare(data, 0, 15, 0, 15, h - 1);
   
   return data;
 }
 
-/*function getHeightChunk(x, y) {
+function getHeightChunk(x, y) {
   for(var i = 0; i < heightChunkMap.length; i++) {
     if(heightChunkMap[i][0] == x && heightChunkMap[i][1] == y) {
       return heightChunks[i];
@@ -68,7 +68,7 @@ function genHeightChunk(chunkX, chunkY) {
   heightChunkMap.push([x, y]);
   
   return data;
-}*/
+}
 
 function sNoise2(position, scale) {
   var n = noise.simplex2(position.x / scale, position.y / scale);
@@ -241,9 +241,9 @@ function genChunk(chunkX, chunkY) {
   
   for(var i = 0; i < sugarcane.length; i++) {
     var sc = sugarcane[i];
-    /*if(!blockFunctions.sugarcaneCheckWater(new THREE.Vector3(sc.x + (chunkX * chunkSize.x), sc.z + 1, sc.y * (chunkY + chunkSize.y)))) {
+    if(!blockFunctions.sugarcaneCheckWater(new THREE.Vector3(sc.x + (chunkX * chunkSize.x), sc.z + 1, sc.y * (chunkY + chunkSize.y)))) {
       continue;
-    }*/
+    }
     var ok = false;
     for(var n = 2; n < 6; n++) {
       var pos = new THREE.Vector3(sc.x + faces[n][0], sc.y + faces[n][2], sc.z);
